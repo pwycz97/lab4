@@ -52,6 +52,22 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
+        listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                    TextView name = (TextView) view.findViewById(android.R.id.text1);
+                    Animal zwierz = db.pobierz(Integer.parseInt(name.getText().toString()));
+                    String id_zwierz = Integer.toString(zwierz.getId());
+
+                    db.usun(id_zwierz);
+                    adapter.notifyDataSetChanged();
+                    adapter.changeCursor(db.lista());
+                    adapter.notifyDataSetChanged();
+
+                    return true;
+                }
+            });
+
     }
 
     @Override
